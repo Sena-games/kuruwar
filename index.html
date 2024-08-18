@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KuruWar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("images/bg5.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        #card-container {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .team {
+            margin: 0 20px;
+            text-align: center;
+            
+
+
+        h3{
+            color: white;
+            font-family: 'MedievalSharp', cursive;
+            font-size: 20px;
+        }
+
+        @font-face {
+            font-family: 'samarkan';
+            src: url('fonts/SAMAN___.ttf') format('truetype');
+                    
+            font-weight: normal;
+            font-style: normal;
+        }
+
+
+
+        }
+        .card {
+            background-color: #fff;
+            border: 4px solid #E5BB10;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            margin: 10px;
+            padding: 20px;
+            width: 100px;
+            line-height: 150px;
+            transition: transform 0.2s;
+            font-family: 'MedievalSharp', cursive;
+            font-size: 20px;
+
+        }
+        .card:hover {
+            transform: scale(1.05);
+            border: 4px solid #C83C0C;
+        }
+        .selected {
+
+            border: 4px solid #C83C0C;
+        }
+        #selected-info{
+            color: white;
+            background-color: black;
+            line-height: 50px;
+            width: 600px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .defeated{
+            border: 4px dashed darkred;
+            color: white;
+        }
+        #battle-log {
+            border: 1px solid #000;
+            padding: 10px;
+            margin: 10px 0;
+            height: 100px;
+            overflow-y: auto;
+            background-image: url('images/log.jpg');
+            background-size: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        #scoreboard {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding: 0 20px;
+        }
+        caption{
+            color: white;
+            font-family: 'MedievalSharp', cursive;
+            font-size: 20px;        }
+        .pt {
+            color: white;
+            width: 45%;
+            border-collapse: collapse;
+            background-image: url('images/pand.jpg');
+            background-size: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .pk {
+            width: 45%;
+            border-collapse: collapse;
+            background-image: url('images/both.jpg');
+            background-size: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 20px;
+            color: white;
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: center;
+        }
+        #target-container {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            
+        }
+        .target-card {
+            margin: 10px;
+            line-height: 50px;
+            width: 149px;
+            text-align: center;
+            border-radius: 22px;
+            background-image: url("images/target.png");
+            background-size: cover;
+        }
+        #confirm-button {
+            display: none;
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        #confirm-button:hover {
+            background-color: #0056b3;
+        }
+        #log {
+            font-size: 56px; /* Adjust the size as needed */
+            font-family: 'samarkan';
+            color: black;
+        }
+        .teamp{
+            display: flex;
+        }
+
+        .teamk{
+            display: flex;
+        }
+
+        #p1{
+            background-image: url("images/Abmnyu.jpg");
+            background-size: cover;
+           
+        }
+
+        #p2{
+            background-image: url("images/Arjn.jpg");
+            background-size: cover;
+           
+        }
+        #p3{
+            background-image: url("images/Bhm.jpg");
+            background-size: cover;
+           
+        }
+        #p4{
+            background-image: url("images/Gtkcha.jpg");
+            background-size: cover;
+           
+        }
+        #k1{
+            background-image: url("images/Krn.jpg");
+            background-size: cover;
+           
+        }
+        #k2{
+            background-image: url("images/Bshma.jpg");
+            background-size: cover;
+           
+        }
+        #k3{
+            background-image: url("images/Drna.jpg");
+            background-size: cover;
+           
+        }
+        #k4{
+            background-image: url("images/Ashw.jpg");
+            background-size: cover;
+           
+        }
+        p{
+            opacity: 0;
+        }
+
+    </style>
+    <link href="dist/rpgui.css" rel="stylesheet" type="text/css" >
+    <script src="dist/rpgui.js"></script>
+</head>
+<body class="rpgui-cursor-default">
+    <audio id="background-music" loop>
+        <source src="audio/war-99133.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="click-sound" preload="auto">
+        <source src="audio/click-button-166324.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="death-sound" preload="auto">
+        <source src="audio/man-death-scream-186763.mp3" type="audio/mpeg">
+    </audio>
+    <div id="card-container">
+        
+        <div class="team">
+            <h3>Pandavas</h3>
+            <div class="teamp">
+                <div class="card" id="p1" onclick="selectCard(abmnyu)"><p>Abhimanyu</p></div>
+                <div class="card" id="p2" onclick="selectCard(arjn)"><p>Arjuna</p></div>
+                <div class="card" id="p3" onclick="selectCard(bhm)"><p>Bhima</p></div>
+                <div class="card" id="p4" onclick="selectCard(gtkcha)"><p>Ghatotkacha</p></div>
+            </div>
+        </div>
+        <div class="team">
+            <h3>Kauravas</h3>
+            <div class="teamk">
+                <div class="card" id="k1" onclick="selectCard(krn)"><p>Karna</p></div>
+                <div class="card" id="k2" onclick="selectCard(bhsma)"><p>Bhishma</p></div>
+                <div class="card" id="k3" onclick="selectCard(drna)"><p>Dronacharya</p></div>
+                <div class="card" id="k4" onclick="selectCard(ashw)"><p>Ashwathama</p></div>
+            </div>
+        </div>
+
+    </div>
+    <div id="selected-info"></div>
+    <button id="confirm-button" onclick="startBattle()">Start Battle</button>
+    <div id="battle-log" style="display:none;">
+        <div id="log"></div>
+    </div>
+    <div id="target-container" style="display:none;"></div>
+    <div id="scoreboard">
+        <table class="pt">
+            <caption>Pandavas</caption>
+            <thead>
+                <tr>
+                    <th>Character</th>
+                    <th>Health</th>
+                </tr>
+            </thead>
+            <tbody id="pandavas-scoreboard"></tbody>
+        </table>
+        <table class="pk">
+            <caption>Kauravas</caption>
+            <thead>
+                <tr>
+                    <th>Character</th>
+                    <th>Health</th>
+                </tr>
+            </thead>
+            <tbody id="kauravas-scoreboard"></tbody>
+        </table>
+    </div>
+    <script>
+        const abmnyu = {"H":43,"Dam":14,"Def":8,"P":10,"T":"Pandavas","R":1,"N1":"Abhimanyu"};
+        const arjn = {"H":78,"Dam":11,"Def":4,"P":10,"T":"Pandavas","R":3,"N1":"Arjuna"};
+        const bhm = {"H":68,"Dam":10,"Def":9,"P":10,"T":"Pandavas","R":5,"N1":"Bhima"};
+        const gtkcha = {"H":65,"Dam":12,"Def":6,"P":10,"T":"Pandavas","R":7,"N1":"Ghatotkacha"};
+        const krn = {"H":56,"Dam":12,"Def":6,"P":10,"T":"Kauravas","R":2,"N1":"Karna"};
+        const bhsma = {"H":54,"Dam":16,"Def":5,"P":10,"T":"Kauravas","R":4,"N1":"Bhishma"};
+        const drna = {"H":73,"Dam":6,"Def":11,"P":10,"T":"Kauravas","R":6,"N1":"Dronacharya"};
+        const ashw = {"H":69,"Dam":13,"Def":5,"P":10,"T":"Kauravas","R":8,"N1":"Ashwathama"};
+
+        let selectedCard = null;
+        let battleLog = [];
+        let pandavas = [abmnyu, arjn, bhm, gtkcha];
+        let kauravas = [krn, bhsma, drna, ashw];
+        let turnOrder = [];
+        let currentDay = 0;
+
+        function selectCard(card) {
+            document.getElementById('click-sound').play(); // Play click sound
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(c => c.classList.remove('selected'));
+            selectedCard = card;
+            const selectedElement = [...cards].find(c => c.textContent === card.N1);
+            selectedElement.classList.add('selected');
+            document.getElementById('selected-info').textContent = `Selected Card: ${card.N1} (Health: ${card.H}, Damage: ${card.Dam}, Defense: ${card.Def})`;
+            document.getElementById('confirm-button').style.display = 'block';
+        }
+
+        function startBattle() {
+            document.getElementById('background-music').play();
+
+            battleLog = [];
+            turnOrder = [...pandavas, ...kauravas].sort((a, b) => a.R - b.R);
+            document.getElementById('battle-log').style.display = 'block';
+            document.getElementById('target-container').style.display = 'none';
+            updateScoreboard();
+            nextTurn();
+        }
+        function readOutLoud(message, volume = 1.0, rate = 1.0) {
+            const utterance = new SpeechSynthesisUtterance(message);
+            utterance.volume = volume; // Adjust volume here (0.0 to 1.0)
+            utterance.rate = rate; // Adjust rate here (0.1 to 10)
+            speechSynthesis.speak(utterance);
+        }
+
+        function nextTurn() {
+            if (allDefeated(pandavas) || allDefeated(kauravas)) {
+                displayEndGameMessage();
+                return;
+            }
+
+            currentDay++;
+            const currentCard = turnOrder.shift();
+            turnOrder.push(currentCard);
+
+            if (currentCard.H <= 0) {
+                setTimeout(nextTurn, 3000);
+                return;
+            }
+
+            let targetTeam = currentCard.T === "Pandavas" ? kauravas : pandavas;
+
+            if (currentCard.N1 === selectedCard.N1) {
+                const targetContainer = document.getElementById('target-container');
+                targetContainer.innerHTML = "";
+                targetTeam.forEach(card => {
+                    if (card.H > 0) {
+                        targetContainer.innerHTML += `<div class="card target-card" onclick="attack('${currentCard.N1}', '${card.N1}')">${card.N1} </div>`;
+                    }
+                });
+                document.getElementById('selected-info').textContent = `${currentCard.N1}, choose your target!`;
+                targetContainer.style.display = 'flex';
+            } else if (currentCard.H > 0) {
+                document.getElementById('target-container').style.display = 'none';
+                let targetCard = targetTeam.filter(card => card.H > 0)[Math.floor(Math.random() * targetTeam.filter(card => card.H > 0).length)];
+                setTimeout(() => attack(currentCard.N1, targetCard.N1), 3000);
+            }
+        }
+
+        function attack(attackerName, targetName) {
+            const attacker = [...pandavas, ...kauravas].find(card => card.N1 === attackerName);
+            const target = (attacker.T === "Pandavas" ? kauravas : pandavas).find(card => card.N1 === targetName);
+
+            if (attacker.H <= 0 || target.H <= 0) {
+                return;
+            }
+
+            const randomBonus = [8, 9, 10, 11, 12][Math.floor(Math.random() * 5)];
+            const shot = attacker.Dam - target.Def + randomBonus;
+            target.H -= shot;
+
+            battleLog.push(`Maaran : ${attacker.N1} attacks ${target.N1} for ${shot} damage!`);
+
+            if (target.H <= 0) {
+                target.H = 0;
+                document.getElementById('death-sound').play(); // Play death sound
+                battleLog.push(`Maaran : ${target.N1} has been defeated!`);
+                updateCardAppearance(target);
+            }
+
+            document.getElementById('log').innerHTML = battleLog[battleLog.length - 1];
+            updateScoreboard();
+
+            setTimeout(nextTurn, 3000);
+        }
+
+        function updateCardAppearance(card) {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(c => {
+                if (c.textContent.includes(card.N1)) {
+                    c.classList.add('defeated');
+                    c.style.pointerEvents = 'none';
+                }
+            });
+        }
+
+        function allDefeated(team) {
+            return team.every(card => card.H <= 0);
+        }
+
+        function updateScoreboard() {
+            const pandavasScoreboard = document.getElementById('pandavas-scoreboard');
+            const kauravasScoreboard = document.getElementById('kauravas-scoreboard');
+            pandavasScoreboard.innerHTML = '';
+            kauravasScoreboard.innerHTML = '';
+
+            pandavas.forEach(card => {
+                pandavasScoreboard.innerHTML += `<tr><td>${card.N1}</td><td>${card.H}</td></tr>`;
+            });
+
+            kauravas.forEach(card => {
+                kauravasScoreboard.innerHTML += `<tr><td>${card.N1}</td><td>${card.H}</td></tr>`;
+            });
+        }
+
+        function displayEndGameMessage() {
+            let message = "";
+
+            if (allDefeated(pandavas)) {
+                message = "Maaran : Kauravas Won the Battle!!  GAME OVER";
+                voice = 'Kauravas Won The Battle'
+            } else if (allDefeated(kauravas)) {
+                message = "Maaran : Pandavas Won the Battle!!  GAME OVER";
+                voice = 'Paandavas Won The Battle'
+
+            }
+
+            battleLog.push(message);
+            readOutLoud(voice,1.0,0.5)
+            document.getElementById('log').innerHTML = battleLog[battleLog.length - 1];
+        }
+
+    </script>
+</body>
+</html>
